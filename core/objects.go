@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type GoodsType uint32
+type GoodsType int
 
 //go:generate stringer -type=GoodsType
 const (

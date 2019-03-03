@@ -2,9 +2,7 @@ package farm
 
 import (
 	"context"
-	"fmt"
 	"github.com/AndreyBronin/golang-di-sandbox/core"
-	"log"
 	"time"
 )
 
@@ -29,29 +27,29 @@ func (f *farm) ProduceFood(t core.GoodsType, count uint) core.Food {
 }
 
 func (f *farm) Start(ctx context.Context) error {
-	ctx, f.cancel = context.WithCancel(ctx)
-	go func(ctx context.Context) {
-		for {
-			select {
-			case <-ctx.Done():
-				return
-			case <-time.After(time.Second):
-				milk := f.ProduceFood(core.GoodsTypeMilk, 1)
-				fmt.Println(milk.Name())
-				f.Warehouse.PutFood(milk)
-				// TODO use channels intead
-				// f.Warehouse.GetChannel() <- milk
-			}
-		}
-	}(ctx)
-
-	log.Println("Milk farm started.")
+	//ctx, f.cancel = context.WithCancel(ctx)
+	//go func(ctx context.Context) {
+	//	for {
+	//		select {
+	//		case <-ctx.Done():
+	//			return
+	//		case <-time.After(time.Second):
+	//			milk := f.ProduceFood(core.GoodsTypeMilk, 1)
+	//			fmt.Println(milk.Name())
+	//			f.Warehouse.PutFood(milk)
+	//			// TODO use channels intead
+	//			// f.Warehouse.GetChannel() <- milk
+	//		}
+	//	}
+	//}(ctx)
+	//
+	//log.Println("Milk farm started.")
 	return nil
 }
 
 func (f *farm) Stop(ctx context.Context) error {
-	f.cancel()
-	log.Println("Milk farm stopped.")
+	//	f.cancel()
+	//	log.Println("Milk farm stopped.")
 	return nil
 }
 
