@@ -1,10 +1,8 @@
-
-
 package warehouse
 
 type Warehouse interface {
 
-	PutFood() error
+	PutFood(string) error
 	PutProduct() error
 
 	TakeFood() error
