@@ -1,12 +1,33 @@
 package warehouse
 
-type Warehouse interface {
+import (
+	"github.com/AndreyBronin/golang-di-sandbox/core"
+)
 
-	PutFood(string) error
-	PutProduct() error
-
-	TakeFood() error
-	TakeProduct() error
-
-	DumpExpiredFood()
+type Warehouse struct {
+	Farm    core.Farmer  `inject:""`
+	Factory core.Factory `inject:""`
 }
+
+func (w *Warehouse) PutFood(food core.Food) error {
+	//panic("implement me")
+	return nil
+}
+
+func (w *Warehouse) PutProduct() error {
+	panic("implement me")
+}
+
+func (w *Warehouse) TakeFood() error {
+	panic("implement me")
+}
+
+func (w *Warehouse) TakeProduct() error {
+	panic("implement me")
+}
+
+func (w *Warehouse) DumpExpiredFood() {
+	panic("implement me")
+}
+
+// order food and products if empty

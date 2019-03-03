@@ -2,18 +2,21 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"github.com/AndreyBronin/golang-di-sandbox/factory"
 	"github.com/AndreyBronin/golang-di-sandbox/farm"
+	"github.com/AndreyBronin/golang-di-sandbox/supermarket"
+	"github.com/AndreyBronin/golang-di-sandbox/warehouse"
 	"github.com/insolar/component-manager"
 	"log"
 	"time"
 )
 
 func main() {
-	fmt.Println("Golang DI sandbox")
-
 	cm := component.NewManager(nil)
-	cm.Register(farm.NewMilkFarm())
+	cm.Register(farm.NewFarm(), factory.NewDoorFactory())
+	cm.Register(&supermarket.Supermarket{}, &warehouse.Warehouse{})
+
+	cm.Register(NewCustomer("Bob"), NewCustomer("Alice"))
 	cm.Inject()
 
 	ctx := context.Background()
