@@ -18,10 +18,11 @@ type Customer struct {
 	cancel context.CancelFunc
 
 	Supermarket core.Buyer `inject:""`
+	randomer    randomer
 }
 
 func NewCustomer(name string) *Customer {
-	return &Customer{name: name}
+	return &Customer{name: name, randomer: &mathRandom{}}
 }
 
 func (c *Customer) Start(ctx context.Context) error {
@@ -31,8 +32,8 @@ func (c *Customer) Start(ctx context.Context) error {
 			select {
 			case <-ctx.Done():
 				return
-			case <-time.After(randomTimeout()):
-				c.BuyGoods(createRandomShoppingList())
+			case <-time.After(c.randomer.randomTimeout()):
+				c.BuyGoods(c.randomer.randomShoppingList())
 			}
 		}
 	}(ctx)
@@ -58,7 +59,14 @@ func (c *Customer) BuyGoods(shoppingList []core.GoodsType) []core.Object {
 	return result
 }
 
-func createRandomShoppingList() []core.GoodsType {
+type randomer interface {
+	randomShoppingList() []core.GoodsType
+	randomTimeout() time.Duration
+}
+
+type mathRandom struct{}
+
+func (mathRandom) randomShoppingList() []core.GoodsType {
 	var count int
 	for {
 		count = rand.Intn(maxShoppingListLen)
@@ -74,6 +82,6 @@ func createRandomShoppingList() []core.GoodsType {
 	return result
 }
 
-func randomTimeout() time.Duration {
+func (mathRandom) randomTimeout() time.Duration {
 	return time.Second * time.Duration(rand.Intn(maxTimeoutSec))
 }
