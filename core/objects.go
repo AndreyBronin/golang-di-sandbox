@@ -13,39 +13,23 @@ const (
 	GoodsTypeDoor
 )
 
-type Object interface {
+type Product interface {
 	Name() string
 	Weight() uint32
-}
-
-type Food interface {
-	Object
 	Expiration() time.Time
 }
 
-type Product interface {
-	Object
-}
-
-type Farmer interface {
-	// ProduceFood
-	ProduceFood(GoodsType, uint) Food
-}
-
-type Factory interface {
-	ProduceProduct(GoodsType, count uint) Product
+type Producer interface {
+	Produce(GoodsType, uint) Product
 }
 
 type Warehouse interface {
-	PutFood(food Food) error
-	PutProduct() error
-
-	TakeFood() error
-	TakeProduct() error
+	Get(GoodsType) (Product, error)
+	Put(Product) error
 
 	DumpExpiredFood()
 }
 
 type Buyer interface {
-	Buy(GoodsType) (Object, error)
+	Buy(GoodsType) (Product, error)
 }

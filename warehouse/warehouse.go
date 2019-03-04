@@ -5,11 +5,11 @@ import (
 )
 
 type Warehouse struct {
-	Farm    core.Farmer  `inject:""`
-	Factory core.Factory `inject:""`
+	//Farm    core.Farmer   `inject:""`
+	//Factory core.Producer `inject:""`
 }
 
-func (w *Warehouse) PutFood(food core.Food) error {
+func (w *Warehouse) PutFood(food core.Product) error {
 	//panic("implement me")
 	return nil
 }
@@ -31,3 +31,4 @@ func (w *Warehouse) DumpExpiredFood() {
 }
 
 // order food and products if empty
+//

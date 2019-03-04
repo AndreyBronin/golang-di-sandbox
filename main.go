@@ -7,8 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/AndreyBronin/golang-di-sandbox/factory"
-	"github.com/AndreyBronin/golang-di-sandbox/farm"
+	"github.com/AndreyBronin/golang-di-sandbox/producer"
 	"github.com/AndreyBronin/golang-di-sandbox/supermarket"
 	"github.com/AndreyBronin/golang-di-sandbox/warehouse"
 	"github.com/insolar/component-manager"
@@ -16,7 +15,7 @@ import (
 
 func main() {
 	cm := component.NewManager(nil)
-	cm.Register(farm.NewFarm(), factory.NewDoorFactory())
+	cm.Register(producer.NewFarm(), producer.NewDoorFactory())
 	cm.Register(&supermarket.Supermarket{}, &warehouse.Warehouse{})
 
 	cm.Register(NewCustomer("Bob"), NewCustomer("Alice"))

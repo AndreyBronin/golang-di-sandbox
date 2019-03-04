@@ -9,8 +9,8 @@ type Supermarket struct {
 	Warehouse core.Warehouse `inject:""`
 }
 
-func (s *Supermarket) Buy(thing core.GoodsType) (core.Object, error) {
+func (s *Supermarket) Buy(thing core.GoodsType) (core.Product, error) {
 	return nil, errors.New("not implemented")
 
-	//s.Warehouse.
+	//s.Warehouse.Get(thing)
 }

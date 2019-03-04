@@ -45,8 +45,8 @@ func (c *Customer) Stop(ctx context.Context) error {
 	return nil
 }
 
-func (c *Customer) BuyGoods(shoppingList []core.GoodsType) []core.Object {
-	result := make([]core.Object, 0)
+func (c *Customer) BuyGoods(shoppingList []core.GoodsType) []core.Product {
+	result := make([]core.Product, 0)
 	for _, good := range shoppingList {
 		thing, err := c.Supermarket.Buy(good)
 		if err != nil {
